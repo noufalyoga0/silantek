@@ -529,7 +529,7 @@
                             'admin'        => 'Administrator',
                             'csirt'        => 'Tim CSIRT',
                             'kabid_aptika' => 'Kabid APTIKA',
-                            'pic_opd'      => 'PIC IT OPD',
+                            'pic_opd'      => 'PIC OPD',
                             default        => auth()->user()->role,
                         };
                     @endphp
@@ -546,29 +546,6 @@
     {{-- TOPBAR --}}
     <header id="topbar">
         <div class="d-flex align-items-center gap-2">
-            {{-- Role badge berwarna --}}
-            @php
-                $roleStyle = match(auth()->user()->role) {
-                    'admin'        => ['#1e3a5f','#dbeafe','#1d4ed8','bi-shield-lock-fill'],
-                    'csirt'        => ['#1e3a5f','#fee2e2','#b91c1c','bi-shield-fill-check'],
-                    'kabid_aptika' => ['#14532d','#dcfce7','#15803d','bi-person-workspace'],
-                    'pic_opd'      => ['#1e3a5f','#eff6ff','#2563eb','bi-person-badge-fill'],
-                    default        => ['#1e293b','#f1f5f9','#475569','bi-person-fill'],
-                };
-            @endphp
-            <div class="d-none d-md-flex align-items-center gap-2 px-2 py-1 rounded-3"
-                 style="background:{{ $roleStyle[1] }}; border:1px solid {{ $roleStyle[1] }};">
-                <i class="bi {{ $roleStyle[3] }}" style="color:{{ $roleStyle[2] }}; font-size:0.78rem;"></i>
-                <span style="font-size:0.72rem; font-weight:600; color:{{ $roleStyle[2] }};">
-                    {{ match(auth()->user()->role) {
-                        'admin'        => 'Administrator',
-                        'csirt'        => 'Tim CSIRT',
-                        'kabid_aptika' => 'Kabid APTIKA',
-                        'pic_opd'      => 'PIC IT OPD',
-                        default        => auth()->user()->role,
-                    } }}
-                </span>
-            </div>
             <div class="topbar-title">@yield('page-title', 'Dashboard')</div>
         </div>
 
@@ -613,13 +590,12 @@
                                 <div class="text-muted" style="font-size:0.7rem;">NIP: {{ auth()->user()->nip }}</div>
                             </div>
                         </div>
-                        <span class="badge mt-1" style="background:{{ $roleStyle[1] }}; color:{{ $roleStyle[2] }}; font-size:0.68rem;">
-                            <i class="bi {{ $roleStyle[3] }} me-1"></i>
+                        <span class="badge bg-secondary mt-1" style="font-size:0.68rem;">
                             {{ match(auth()->user()->role) {
                                 'admin'        => 'Administrator',
                                 'csirt'        => 'Tim CSIRT',
                                 'kabid_aptika' => 'Kabid APTIKA',
-                                'pic_opd'      => 'PIC IT OPD',
+                                'pic_opd'      => 'PIC OPD',
                                 default        => auth()->user()->role,
                             } }}
                         </span>

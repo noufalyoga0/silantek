@@ -1,21 +1,22 @@
-@extends('layouts.app')
 
-@section('title', 'Detail Tiket')
-@section('page-title', 'Detail Tiket ' . $tiket->nomor_tiket)
 
-@section('content')
+<?php $__env->startSection('title', 'Detail Tiket'); ?>
+<?php $__env->startSection('page-title', 'Detail Tiket ' . $tiket->nomor_tiket); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="page-header d-flex justify-content-between align-items-center">
     <div>
         <h4>
-            <i class="bi bi-ticket me-2 text-primary"></i>{{ $tiket->nomor_tiket }}
-            <span class="badge badge-{{ $tiket->status }} ms-2">{{ $tiket->status_label }}</span>
-            @if($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']))
+            <i class="bi bi-ticket me-2 text-primary"></i><?php echo e($tiket->nomor_tiket); ?>
+
+            <span class="badge badge-<?php echo e($tiket->status); ?> ms-2"><?php echo e($tiket->status_label); ?></span>
+            <?php if($tiket->is_overdue && !in_array($tiket->status,['resolved','closed'])): ?>
                 <span class="badge bg-danger ms-1 overdue-badge">OVERDUE</span>
-            @endif
+            <?php endif; ?>
         </h4>
-        <p class="text-muted mb-0">Dilaporkan {{ $tiket->created_at->diffForHumans() }} &bull; {{ $tiket->created_at->format('d/m/Y H:i:s') }}</p>
+        <p class="text-muted mb-0">Dilaporkan <?php echo e($tiket->created_at->diffForHumans()); ?> &bull; <?php echo e($tiket->created_at->format('d/m/Y H:i:s')); ?></p>
     </div>
-    <a href="{{ route('tiket.index') }}" class="btn btn-outline-secondary btn-sm">
+    <a href="<?php echo e(route('tiket.index')); ?>" class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-arrow-left me-1"></i>Kembali
     </a>
 </div>
@@ -26,7 +27,7 @@
 
         <!-- IDENTITAS PELAPOR -->
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
-            {{-- Header gradient --}}
+            
             <div style="background:linear-gradient(135deg,#1e3a5f,#2563eb); padding:1rem 1.25rem;">
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
                     <i class="bi bi-person-badge-fill"></i>Identitas Pelapor
@@ -37,7 +38,7 @@
             </div>
             <div class="card-body p-3">
                 <div class="row g-3">
-                    {{-- Nama --}}
+                    
                     <div class="col-md-6">
                         <div style="background:#f8fafc; border-radius:10px; padding:0.75rem 1rem;
                                     border-left:3px solid #2563eb; border:1px solid #f1f5f9;
@@ -45,10 +46,10 @@
                             <div style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.6px; color:#94a3b8; margin-bottom:0.3rem;">
                                 <i class="bi bi-person me-1"></i>Nama Lengkap
                             </div>
-                            <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;">{{ $tiket->nama_pelapor }}</div>
+                            <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;"><?php echo e($tiket->nama_pelapor); ?></div>
                         </div>
                     </div>
-                    {{-- NIP --}}
+                    
                     <div class="col-md-6">
                         <div style="background:#f8fafc; border-radius:10px; padding:0.75rem 1rem;
                                     border:1px solid #f1f5f9; border-left:3px solid #7c3aed;">
@@ -57,21 +58,22 @@
                             </div>
                             <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;
                                         font-variant-numeric:tabular-nums; letter-spacing:0.5px;">
-                                {{ $tiket->nip_pelapor }}
+                                <?php echo e($tiket->nip_pelapor); ?>
+
                             </div>
                         </div>
                     </div>
-                    {{-- Jabatan --}}
+                    
                     <div class="col-md-6">
                         <div style="background:#f8fafc; border-radius:10px; padding:0.75rem 1rem;
                                     border:1px solid #f1f5f9; border-left:3px solid #0891b2;">
                             <div style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.6px; color:#94a3b8; margin-bottom:0.3rem;">
                                 <i class="bi bi-briefcase me-1"></i>Jabatan
                             </div>
-                            <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;">{{ $tiket->jabatan_pelapor ?? '-' }}</div>
+                            <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;"><?php echo e($tiket->jabatan_pelapor ?? '-'); ?></div>
                         </div>
                     </div>
-                    {{-- No HP --}}
+                    
                     <div class="col-md-6">
                         <div style="background:#f8fafc; border-radius:10px; padding:0.75rem 1rem;
                                     border:1px solid #f1f5f9; border-left:3px solid #16a34a;">
@@ -79,20 +81,21 @@
                                 <i class="bi bi-telephone me-1"></i>No. HP / WA
                             </div>
                             <div class="fw-semibold" style="font-size:0.875rem; color:#0f172a;">
-                                @if($tiket->no_hp_pelapor)
-                                    <a href="https://wa.me/{{ preg_replace('/^0/', '62', $tiket->no_hp_pelapor) }}"
+                                <?php if($tiket->no_hp_pelapor): ?>
+                                    <a href="https://wa.me/<?php echo e(preg_replace('/^0/', '62', $tiket->no_hp_pelapor)); ?>"
                                        target="_blank"
                                        class="text-decoration-none d-inline-flex align-items-center gap-1"
                                        style="color:#0f172a;">
-                                        {{ $tiket->no_hp_pelapor }}
+                                        <?php echo e($tiket->no_hp_pelapor); ?>
+
                                         <i class="bi bi-whatsapp" style="color:#22c55e; font-size:0.85rem;"></i>
                                     </a>
-                                @else -
-                                @endif
+                                <?php else: ?> -
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                    {{-- OPD full width --}}
+                    
                     <div class="col-12">
                         <div style="background:linear-gradient(135deg,#eff6ff,#f0f9ff); border-radius:10px;
                                     padding:0.85rem 1rem; border:1px solid #bfdbfe; border-left:3px solid #2563eb;">
@@ -100,7 +103,8 @@
                                 <i class="bi bi-buildings me-1"></i>Organisasi Perangkat Daerah
                             </div>
                             <div class="fw-bold" style="font-size:0.95rem; color:#1e40af;">
-                                {{ $tiket->opd->nama_opd ?? '-' }}
+                                <?php echo e($tiket->opd->nama_opd ?? '-'); ?>
+
                             </div>
                         </div>
                     </div>
@@ -110,8 +114,8 @@
 
         <!-- DETAIL INSIDEN -->
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
-            {{-- Header gradient sesuai urgensi AKTIF (override jika ada) --}}
-            @php
+            
+            <?php
                 $slaAktif  = $tiket->sla_aktif;
                 $gradients = [
                     'kritis' => 'linear-gradient(135deg, #7f1d1d, #dc2626)',
@@ -122,41 +126,43 @@
                 $grad = $gradients[$slaAktif->urgensi ?? 'rendah'] ?? $gradients['rendah'];
                 $borderColors = ['kritis'=>'#dc2626','tinggi'=>'#d97706','sedang'=>'#0891b2','rendah'=>'#16a34a'];
                 $borderColor  = $borderColors[$slaAktif->urgensi ?? 'rendah'] ?? '#64748b';
-            @endphp
-            <div style="background:{{ $grad }}; padding:1rem 1.25rem;">
+            ?>
+            <div style="background:<?php echo e($grad); ?>; padding:1rem 1.25rem;">
                 <div class="d-flex align-items-center justify-content-between">
                     <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
                         <i class="bi bi-shield-exclamation"></i>Detail Insiden
                     </h6>
                     <div class="d-flex align-items-center gap-2">
-                        @if($tiket->sudahDioverride())
-                            {{-- Urgensi asal (coret) --}}
+                        <?php if($tiket->sudahDioverride()): ?>
+                            
                             <span class="badge fw-bold"
                                   style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.5);
                                          text-decoration:line-through; font-size:0.7rem;">
-                                {{ ucfirst($tiket->slaConfig->urgensi ?? '-') }}
+                                <?php echo e(ucfirst($tiket->slaConfig->urgensi ?? '-')); ?>
+
                             </span>
                             <i class="bi bi-arrow-right text-white" style="font-size:0.7rem; opacity:0.6;"></i>
-                        @endif
-                        {{-- Urgensi final --}}
+                        <?php endif; ?>
+                        
                         <span class="badge text-white fw-bold px-3 py-2"
                               style="background:rgba(255,255,255,0.2); backdrop-filter:blur(4px);
                                      border-radius:8px; font-size:0.78rem;">
-                            ⚡ {{ ucfirst($slaAktif->urgensi ?? '-') }}
-                            @if($tiket->sudahDioverride())
+                            ⚡ <?php echo e(ucfirst($slaAktif->urgensi ?? '-')); ?>
+
+                            <?php if($tiket->sudahDioverride()): ?>
                                 <i class="bi bi-patch-check-fill ms-1" style="font-size:0.7rem;"></i>
-                            @endif
+                            <?php endif; ?>
                         </span>
                     </div>
                 </div>
-                @if($tiket->sudahDioverride())
+                <?php if($tiket->sudahDioverride()): ?>
                 <div class="mt-1" style="font-size:0.7rem; color:rgba(255,255,255,0.55);">
                     <i class="bi bi-hourglass-split me-1"></i>Menunggu verifikasi urgensi oleh Tim CSIRT
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
             <div class="card-body p-0">
-                {{-- 2 info utama --}}
+                
                 <div class="d-flex border-bottom">
                     <div class="flex-fill p-3 border-end">
                         <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.6px; color:#94a3b8; margin-bottom:0.3rem;">
@@ -164,9 +170,11 @@
                         </div>
                         <div class="fw-semibold" style="font-size:0.85rem;">
                             <span class="badge me-1" style="background:#f1f5f9; color:#475569; font-size:0.65rem;">
-                                {{ $tiket->kategoriInsiden->kode ?? '-' }}
+                                <?php echo e($tiket->kategoriInsiden->kode ?? '-'); ?>
+
                             </span>
-                            {{ $tiket->kategoriInsiden->nama ?? '-' }}
+                            <?php echo e($tiket->kategoriInsiden->nama ?? '-'); ?>
+
                         </div>
                     </div>
                     <div class="flex-fill p-3">
@@ -174,56 +182,58 @@
                             <i class="bi bi-calendar-event me-1"></i>Tanggal Kejadian
                         </div>
                         <div class="fw-semibold" style="font-size:0.875rem;">
-                            {{ $tiket->tanggal_kejadian ? $tiket->tanggal_kejadian->format('d/m/Y') : '-' }}
+                            <?php echo e($tiket->tanggal_kejadian ? $tiket->tanggal_kejadian->format('d/m/Y') : '-'); ?>
+
                         </div>
                     </div>
                 </div>
-                {{-- Deskripsi --}}
+                
                 <div class="p-3">
                     <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.6px; color:#94a3b8; margin-bottom:0.5rem;">
                         <i class="bi bi-file-text me-1"></i>Deskripsi Kejadian
                     </div>
                     <div style="background:#f8fafc; border-radius:10px; padding:0.85rem 1rem;
-                                border-left:3px solid {{ $borderColor }};
-                                font-size:0.85rem; color:#334155; white-space:pre-wrap; line-height:1.65;">{{ $tiket->deskripsi }}</div>
+                                border-left:3px solid <?php echo e($borderColor); ?>;
+                                font-size:0.85rem; color:#334155; white-space:pre-wrap; line-height:1.65;"><?php echo e($tiket->deskripsi); ?></div>
                 </div>
             </div>
         </div>
 
         <!-- LAMPIRAN -->
-        @if($tiket->lampiranTiket->count() > 0)
+        <?php if($tiket->lampiranTiket->count() > 0): ?>
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
             <div style="background:linear-gradient(135deg,#334155,#475569); padding:1rem 1.25rem;">
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
                     <i class="bi bi-paperclip"></i>Lampiran
                     <span class="badge ms-1" style="background:rgba(255,255,255,0.2); font-size:0.68rem;">
-                        {{ $tiket->lampiranTiket->count() }} file
+                        <?php echo e($tiket->lampiranTiket->count()); ?> file
                     </span>
                 </h6>
             </div>
             <div class="card-body p-3">
                 <div class="row g-2">
-                    @foreach($tiket->lampiranTiket as $lamp)
-                    @php
+                    <?php $__currentLoopData = $tiket->lampiranTiket; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lamp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
                         $isPdf   = str_contains($lamp->file_type ?? '', 'pdf');
                         $isImg   = str_contains($lamp->file_type ?? '', 'image');
                         $iconBg  = $isPdf ? '#fff1f0' : '#eff6ff';
                         $iconCl  = $isPdf ? '#ef4444' : '#2563eb';
                         $icon    = $isPdf ? 'bi-file-earmark-pdf-fill' : 'bi-file-earmark-image-fill';
-                    @endphp
+                    ?>
                     <div class="col-6 col-md-4">
-                        <a href="{{ $lamp->url }}" target="_blank" class="text-decoration-none">
+                        <a href="<?php echo e($lamp->url); ?>" target="_blank" class="text-decoration-none">
                             <div class="d-flex align-items-center gap-2 p-2 rounded-3"
                                  style="background:#f8fafc; border:1px solid #e2e8f0; transition:all .15s;"
                                  onmouseover="this.style.background='#eff6ff'; this.style.borderColor='#bfdbfe';"
                                  onmouseout="this.style.background='#f8fafc'; this.style.borderColor='#e2e8f0';">
-                                <div style="width:36px; height:36px; border-radius:8px; background:{{ $iconBg }};
+                                <div style="width:36px; height:36px; border-radius:8px; background:<?php echo e($iconBg); ?>;
                                             display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                                    <i class="bi {{ $icon }}" style="color:{{ $iconCl }}; font-size:1rem;"></i>
+                                    <i class="bi <?php echo e($icon); ?>" style="color:<?php echo e($iconCl); ?>; font-size:1rem;"></i>
                                 </div>
                                 <div style="overflow:hidden; min-width:0;">
                                     <div class="fw-semibold text-truncate" style="font-size:0.78rem; color:#0f172a;">
-                                        {{ $lamp->file_name ?? 'File' }}
+                                        <?php echo e($lamp->file_name ?? 'File'); ?>
+
                                     </div>
                                     <div style="font-size:0.65rem; color:#94a3b8;">
                                         Klik untuk buka
@@ -232,11 +242,11 @@
                             </div>
                         </a>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- TIMELINE LOG STATUS -->
         <div class="card border-0 shadow-sm" style="overflow:hidden;">
@@ -244,13 +254,13 @@
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
                     <i class="bi bi-clock-history"></i>Timeline Penanganan
                     <span class="badge ms-1" style="background:rgba(255,255,255,0.15); font-size:0.65rem;">
-                        {{ $tiket->logStatus->count() }} aktivitas
+                        <?php echo e($tiket->logStatus->count()); ?> aktivitas
                     </span>
                 </h6>
             </div>
             <div class="card-body py-3 px-4">
-                @foreach($tiket->logStatus as $index => $log)
-                @php
+                <?php $__currentLoopData = $tiket->logStatus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $log): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php
                     $isLast = $index === $tiket->logStatus->count() - 1;
                     $dotConfig = match($log->status_baru) {
                         'open'        => ['#dbeafe', '#2563eb', 'bi-ticket-perforated-fill'],
@@ -261,58 +271,62 @@
                         'closed'      => ['#f1f5f9', '#475569', 'bi-lock-fill'],
                         default       => ['#f1f5f9', '#94a3b8', 'bi-circle-fill'],
                     };
-                @endphp
-                <div class="d-flex gap-3 {{ $isLast ? '' : 'mb-0' }}" style="position:relative;">
+                ?>
+                <div class="d-flex gap-3 <?php echo e($isLast ? '' : 'mb-0'); ?>" style="position:relative;">
 
-                    {{-- Kolom kiri: dot + connector --}}
+                    
                     <div class="d-flex flex-column align-items-center flex-shrink-0" style="width:32px;">
-                        {{-- Dot buletan berwarna --}}
+                        
                         <div style="width:32px; height:32px; border-radius:50%;
-                                    background:{{ $dotConfig[0] }};
-                                    border:2px solid {{ $dotConfig[1] }};
+                                    background:<?php echo e($dotConfig[0]); ?>;
+                                    border:2px solid <?php echo e($dotConfig[1]); ?>;
                                     display:flex; align-items:center; justify-content:center;
                                     flex-shrink:0; position:relative; z-index:1;">
-                            <i class="bi {{ $dotConfig[2] }}" style="font-size:0.75rem; color:{{ $dotConfig[1] }};"></i>
+                            <i class="bi <?php echo e($dotConfig[2]); ?>" style="font-size:0.75rem; color:<?php echo e($dotConfig[1]); ?>;"></i>
                         </div>
-                        {{-- Connector garis ke bawah (kecuali item terakhir) --}}
-                        @if(!$isLast)
+                        
+                        <?php if(!$isLast): ?>
                         <div style="width:2px; flex:1; min-height:24px;
-                                    background:linear-gradient(to bottom, {{ $dotConfig[1] }}60, #e2e8f0);
+                                    background:linear-gradient(to bottom, <?php echo e($dotConfig[1]); ?>60, #e2e8f0);
                                     margin:3px 0;"></div>
-                        @endif
+                        <?php endif; ?>
                     </div>
 
-                    {{-- Kolom kanan: konten --}}
-                    <div class="{{ $isLast ? 'pb-0' : 'pb-4' }} flex-grow-1">
+                    
+                    <div class="<?php echo e($isLast ? 'pb-0' : 'pb-4'); ?> flex-grow-1">
                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2" style="margin-top:4px;">
-                            {{-- Badge warna dari dotConfig --}}
+                            
                             <span class="fw-semibold px-2 py-1"
-                                  style="background:{{ $dotConfig[0] }}; color:{{ $dotConfig[1] }};
+                                  style="background:<?php echo e($dotConfig[0]); ?>; color:<?php echo e($dotConfig[1]); ?>;
                                          border-radius:6px; font-size:0.72rem;">
-                                {{ $log->status_baru_label }}
+                                <?php echo e($log->status_baru_label); ?>
+
                             </span>
                             <span style="font-size:0.72rem; color:#94a3b8;">
-                                {{ $log->created_at->format('d/m/Y H:i:s') }}
+                                <?php echo e($log->created_at->format('d/m/Y H:i:s')); ?>
+
                             </span>
                             <span style="font-size:0.72rem; color:#cbd5e1;">·</span>
                             <span style="font-size:0.72rem; font-weight:600; color:#475569;">
-                                {{ $log->pengubah->nama ?? '-' }}
+                                <?php echo e($log->pengubah->nama ?? '-'); ?>
+
                             </span>
                         </div>
-                        @if($log->catatan)
+                        <?php if($log->catatan): ?>
                         <div style="background:#f8fafc; border-radius:10px; padding:0.65rem 0.85rem;
-                                    border-left:3px solid {{ $dotConfig[1] }};
+                                    border-left:3px solid <?php echo e($dotConfig[1]); ?>;
                                     font-size:0.82rem; color:#334155; white-space:pre-wrap; line-height:1.55;">
-                            {{ $log->catatan }}
+                            <?php echo e($log->catatan); ?>
+
                         </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                {{-- Entri override urgensi: muncul tepat setelah log triase --}}
-                @if($log->status_baru === 'triase' && $tiket->sudahDioverride())
+                
+                <?php if($log->status_baru === 'triase' && $tiket->sudahDioverride()): ?>
                 <div class="d-flex gap-3 mb-0" style="position:relative;">
-                    {{-- Dot --}}
+                    
                     <div class="d-flex flex-column align-items-center flex-shrink-0" style="width:32px;">
                         <div style="width:32px; height:32px; border-radius:50%;
                                     background:#fef3c7; border:2px solid #d97706;
@@ -320,15 +334,15 @@
                                     flex-shrink:0; position:relative; z-index:1;">
                             <i class="bi bi-arrow-left-right" style="font-size:0.75rem; color:#d97706;"></i>
                         </div>
-                        {{-- Connector ke bawah jika masih ada log setelahnya --}}
-                        @if(!$isLast)
+                        
+                        <?php if(!$isLast): ?>
                         <div style="width:2px; flex:1; min-height:24px;
                                     background:linear-gradient(to bottom, #d97706aa, #e2e8f0);
                                     margin:3px 0;"></div>
-                        @endif
+                        <?php endif; ?>
                     </div>
-                    {{-- Konten --}}
-                    <div class="{{ $isLast ? 'pb-0' : 'pb-4' }} flex-grow-1">
+                    
+                    <div class="<?php echo e($isLast ? 'pb-0' : 'pb-4'); ?> flex-grow-1">
                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2" style="margin-top:4px;">
                             <span class="fw-semibold px-2 py-1"
                                   style="background:#fef3c7; color:#d97706; border-radius:6px; font-size:0.72rem;">
@@ -341,24 +355,26 @@
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span style="font-size:0.75rem; color:#78350f;">Urgensi diubah dari</span>
                                 <span class="badge fw-bold" style="background:#fee2e2; color:#dc2626; font-size:0.7rem;">
-                                    {{ ucfirst($tiket->slaConfig->urgensi ?? '-') }}
+                                    <?php echo e(ucfirst($tiket->slaConfig->urgensi ?? '-')); ?>
+
                                 </span>
                                 <i class="bi bi-arrow-right" style="color:#d97706; font-size:0.7rem;"></i>
                                 <span class="badge fw-bold" style="background:#dcfce7; color:#16a34a; font-size:0.7rem;">
-                                    {{ ucfirst($tiket->slaConfigOverride->urgensi ?? '-') }}
+                                    <?php echo e(ucfirst($tiket->slaConfigOverride->urgensi ?? '-')); ?>
+
                                 </span>
                             </div>
-                            @if($tiket->catatan_triase)
+                            <?php if($tiket->catatan_triase): ?>
                             <div style="font-size:0.78rem; color:#92400e; margin-top:4px;">
-                                <i class="bi bi-chat-quote me-1"></i>"{{ $tiket->catatan_triase }}"
+                                <i class="bi bi-chat-quote me-1"></i>"<?php echo e($tiket->catatan_triase); ?>"
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
 
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
         </div>
@@ -369,118 +385,121 @@
 
         <!-- INFO SLA -->
         <div class="card border-0 shadow-sm mb-3" id="slaCard" style="overflow:hidden;">
-            {{-- Header SLA --}}
-            @php
+            
+            <?php
                 $slaHeaderBg = $tiket->is_overdue && !in_array($tiket->status,['resolved','closed'])
                     ? 'linear-gradient(135deg,#7f1d1d,#dc2626)'
                     : 'linear-gradient(135deg,#1e3a5f,#2563eb)';
-            @endphp
-            <div id="slaCardHeader" style="background:{{ $slaHeaderBg }}; padding:1rem 1.25rem;">
+            ?>
+            <div id="slaCardHeader" style="background:<?php echo e($slaHeaderBg); ?>; padding:1rem 1.25rem;">
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2" id="slaCardTitle">
                     <i class="bi bi-clock"></i>Informasi SLA
-                    @if($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']))
+                    <?php if($tiket->is_overdue && !in_array($tiket->status,['resolved','closed'])): ?>
                         <span class="badge overdue-badge ms-auto" style="background:rgba(255,255,255,0.25); font-size:0.65rem;">⚠ OVERDUE</span>
-                    @endif
+                    <?php endif; ?>
                 </h6>
             </div>
 
             <div class="card-body p-3" style="font-size:0.82rem;">
 
-                {{-- Mini cards: Dilaporkan + Deadline --}}
+                
                 <div class="row g-2 mb-3">
                     <div class="col-6">
                         <div style="background:#f8fafc; border-radius:10px; padding:0.6rem 0.75rem; border:1px solid #f1f5f9;">
                             <div style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; margin-bottom:0.25rem;">
                                 <i class="bi bi-send me-1"></i>Dilaporkan
                             </div>
-                            <div class="fw-semibold" style="font-size:0.78rem; color:#0f172a;">{{ $tiket->created_at->format('d/m/Y') }}</div>
-                            <div style="font-size:0.7rem; color:#2563eb; font-weight:600;">{{ $tiket->created_at->format('H:i:s') }}</div>
-                            <div style="font-size:0.68rem; color:#94a3b8; margin-top:2px;">{{ $tiket->created_at->diffForHumans() }}</div>
+                            <div class="fw-semibold" style="font-size:0.78rem; color:#0f172a;"><?php echo e($tiket->created_at->format('d/m/Y')); ?></div>
+                            <div style="font-size:0.7rem; color:#2563eb; font-weight:600;"><?php echo e($tiket->created_at->format('H:i:s')); ?></div>
+                            <div style="font-size:0.68rem; color:#94a3b8; margin-top:2px;"><?php echo e($tiket->created_at->diffForHumans()); ?></div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div style="background:{{ $tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#fff1f2' : '#f8fafc' }}; border-radius:10px; padding:0.6rem 0.75rem; border:1px solid {{ $tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#fecdd3' : '#f1f5f9' }};">
+                        <div style="background:<?php echo e($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#fff1f2' : '#f8fafc'); ?>; border-radius:10px; padding:0.6rem 0.75rem; border:1px solid <?php echo e($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#fecdd3' : '#f1f5f9'); ?>;">
                             <div style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; margin-bottom:0.25rem;">
                                 <i class="bi bi-flag me-1"></i>Deadline SLA
                             </div>
-                            @if($tiket->sla_deadline)
-                            <div class="fw-semibold" style="font-size:0.78rem; color:{{ $tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#dc2626' : '#0f172a' }};">
-                                {{ $tiket->sla_deadline->format('d/m/Y') }}
+                            <?php if($tiket->sla_deadline): ?>
+                            <div class="fw-semibold" style="font-size:0.78rem; color:<?php echo e($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#dc2626' : '#0f172a'); ?>;">
+                                <?php echo e($tiket->sla_deadline->format('d/m/Y')); ?>
+
                             </div>
-                            <div style="font-size:0.7rem; font-weight:600; color:{{ $tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#dc2626' : '#2563eb' }};">
-                                {{ $tiket->sla_deadline->format('H:i:s') }}
+                            <div style="font-size:0.7rem; font-weight:600; color:<?php echo e($tiket->is_overdue && !in_array($tiket->status,['resolved','closed']) ? '#dc2626' : '#2563eb'); ?>;">
+                                <?php echo e($tiket->sla_deadline->format('H:i:s')); ?>
+
                             </div>
                             <div style="font-size:0.68rem; color:#94a3b8; margin-top:2px;">
-                                {{ ucfirst($tiket->slaConfig->urgensi ?? '-') }} · {{ $tiket->slaConfig->durasi_jam ?? '-' }} jam
+                                <?php echo e(ucfirst($tiket->slaConfig->urgensi ?? '-')); ?> · <?php echo e($tiket->slaConfig->durasi_jam ?? '-'); ?> jam
                             </div>
-                            @else
+                            <?php else: ?>
                             <div class="text-muted">-</div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
 
-                {{-- Countdown realtime (hanya jika tiket aktif) --}}
-                @if(!in_array($tiket->status, ['resolved','closed']) && $tiket->sla_deadline)
+                
+                <?php if(!in_array($tiket->status, ['resolved','closed']) && $tiket->sla_deadline): ?>
                 <div class="mb-3 pb-2 border-bottom">
                     <span class="text-muted d-block mb-1" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px;">
-                        {{ $tiket->is_overdue ? 'Keterlambatan' : 'Sisa Waktu SLA' }}
+                        <?php echo e($tiket->is_overdue ? 'Keterlambatan' : 'Sisa Waktu SLA'); ?>
+
                     </span>
 
-                    {{-- Countdown display --}}
+                    
                     <div id="slaCountdown"
                          class="fw-bold"
-                         style="font-size:1.35rem; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; color:{{ $tiket->is_overdue ? '#dc2626' : '#16a34a' }};">
+                         style="font-size:1.35rem; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; color:<?php echo e($tiket->is_overdue ? '#dc2626' : '#16a34a'); ?>;">
                         --:--:--
                     </div>
 
-                    {{-- Progress bar SLA --}}
-                    @php
+                    
+                    <?php
                         $totalDetik  = $tiket->slaConfig->durasi_jam * 3600;
                         $sisaDetik   = max(0, now()->diffInSeconds($tiket->sla_deadline, false));
                         $persen      = $tiket->is_overdue ? 0 : round(($sisaDetik / $totalDetik) * 100);
                         $barColor    = $persen > 50 ? '#22c55e' : ($persen > 20 ? '#f59e0b' : '#ef4444');
-                    @endphp
+                    ?>
                     <div class="mt-2" style="background:#f1f5f9; border-radius:6px; height:6px; overflow:hidden;">
                         <div id="slaProgressBar"
-                             style="height:100%; width:{{ $persen }}%; background:{{ $barColor }}; border-radius:6px; transition:width 1s linear;"></div>
+                             style="height:100%; width:<?php echo e($persen); ?>%; background:<?php echo e($barColor); ?>; border-radius:6px; transition:width 1s linear;"></div>
                     </div>
-                    {{-- Label intuitif bawah progress bar --}}
+                    
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <span style="font-size:0.68rem; color:#94a3b8;">Deadline</span>
                         <span id="slaPersenText" class="fw-semibold"
-                              style="font-size:0.72rem; color:{{ $barColor }};">
-                            {{ $persen }}% tersisa
+                              style="font-size:0.72rem; color:<?php echo e($barColor); ?>;">
+                            <?php echo e($persen); ?>% tersisa
                         </span>
                         <span style="font-size:0.68rem; color:#94a3b8;">Waktu mulai</span>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
 
-                {{-- Diselesaikan --}}
-                @if($tiket->resolved_at)
+                
+                <?php if($tiket->resolved_at): ?>
                 <div class="mb-2 pb-2 border-bottom">
                     <span class="text-muted d-block" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px;">Diselesaikan</span>
-                    <div class="fw-semibold text-success">{{ $tiket->resolved_at->format('d/m/Y H:i:s') }}</div>
+                    <div class="fw-semibold text-success"><?php echo e($tiket->resolved_at->format('d/m/Y H:i:s')); ?></div>
                 </div>
                 <div class="mb-0">
                     <span class="text-muted d-block" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px;">Durasi Penanganan</span>
                     <div class="fw-semibold">
-                        @php
+                        <?php
                             $menitTotal = (int) $tiket->created_at->diffInMinutes($tiket->resolved_at);
                             $jamDur     = intdiv($menitTotal, 60);
                             $menitDur   = $menitTotal % 60;
-                        @endphp
-                        @if($jamDur > 0){{ $jamDur }} jam @endif{{ $menitDur }} menit
+                        ?>
+                        <?php if($jamDur > 0): ?><?php echo e($jamDur); ?> jam <?php endif; ?><?php echo e($menitDur); ?> menit
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
 
             </div>
         </div>
 
         <!-- AKSI CSIRT: UPDATE STATUS -->
-        @if(auth()->user()->isCsirt() && in_array($tiket->status, ['open','triase','in_progress','reopen']))
+        <?php if(auth()->user()->isCsirt() && in_array($tiket->status, ['open','triase','in_progress','reopen'])): ?>
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
             <div style="background:linear-gradient(135deg,#1e3a5f,#2563eb); padding:1rem 1.25rem;">
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
@@ -491,15 +510,15 @@
                 </p>
             </div>
             <div class="card-body p-3">
-                <form action="{{ route('tiket.update-status', $tiket) }}" method="POST">
-                    @csrf
-                    {{-- Pilih Status --}}
+                <form action="<?php echo e(route('tiket.update-status', $tiket)); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
+                    
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">
                             Status Baru <span class="text-danger">*</span>
                         </label>
                         <div class="d-flex flex-column gap-2">
-                            @if(in_array($tiket->status, ['open']))
+                            <?php if(in_array($tiket->status, ['open'])): ?>
                             <label class="d-flex align-items-center gap-2 p-2 rounded-3 cursor-pointer"
                                    style="border:2px solid #e2e8f0; cursor:pointer; transition:all .15s;"
                                    onmouseover="this.style.borderColor='#d97706'; this.style.background='#fefce8'"
@@ -511,8 +530,8 @@
                                 </div>
                                 <span class="badge ms-auto" style="background:#fef3c7; color:#92400e;">Triase</span>
                             </label>
-                            @endif
-                            @if(in_array($tiket->status, ['triase','reopen']))
+                            <?php endif; ?>
+                            <?php if(in_array($tiket->status, ['triase','reopen'])): ?>
                             <label class="d-flex align-items-center gap-2 p-2 rounded-3"
                                    style="border:2px solid #e2e8f0; cursor:pointer; transition:all .15s;"
                                    onmouseover="this.style.borderColor='#0891b2'; this.style.background='#ecfeff'"
@@ -524,8 +543,8 @@
                                 </div>
                                 <span class="badge ms-auto" style="background:#cffafe; color:#0e7490;">In Progress</span>
                             </label>
-                            @endif
-                            @if(in_array($tiket->status, ['in_progress','reopen']))
+                            <?php endif; ?>
+                            <?php if(in_array($tiket->status, ['in_progress','reopen'])): ?>
                             <label class="d-flex align-items-center gap-2 p-2 rounded-3"
                                    style="border:2px solid #e2e8f0; cursor:pointer; transition:all .15s;"
                                    onmouseover="this.style.borderColor='#16a34a'; this.style.background='#f0fdf4'"
@@ -537,10 +556,10 @@
                                 </div>
                                 <span class="badge ms-auto" style="background:#dcfce7; color:#15803d;">Resolved</span>
                             </label>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
-                    {{-- Catatan --}}
+                    
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">
                             Catatan Teknis <span class="text-danger">*</span>
@@ -557,7 +576,7 @@
                         </div>
                     </div>
 
-                    {{-- ── OVERRIDE URGENSI (muncul saat pilih Triase) ── --}}
+                    
                     <div id="sectionOverride" style="display:none;" class="mb-3">
                         <div class="p-3 rounded-3 mb-3"
                              style="background:linear-gradient(135deg,#fef3c7,#fffbeb); border:1px solid #fde68a;">
@@ -569,8 +588,8 @@
                                     </div>
                                     <div style="font-size:0.72rem; color:#78350f; margin-top:2px; line-height:1.5;">
                                         Pelapor mengklaim urgensi
-                                        <strong>{{ ucfirst($tiket->slaConfig->urgensi ?? '-') }}</strong>
-                                        (SLA: {{ $tiket->slaConfig->durasi_jam ?? '-' }} jam).
+                                        <strong><?php echo e(ucfirst($tiket->slaConfig->urgensi ?? '-')); ?></strong>
+                                        (SLA: <?php echo e($tiket->slaConfig->durasi_jam ?? '-'); ?> jam).
                                         Setelah triase, apakah tingkat urgensi ini sudah tepat?
                                     </div>
                                 </div>
@@ -582,7 +601,7 @@
                             <span class="text-muted fw-normal">(kosongkan jika sudah tepat)</span>
                         </label>
 
-                        @php
+                        <?php
                             $slaAll = \App\Models\SlaConfig::orderByRaw("FIELD(urgensi,'rendah','sedang','tinggi','kritis')")->get();
                             $overrideColors = [
                                 'rendah' => ['#f0fdf4','#dcfce7','#16a34a'],
@@ -590,9 +609,9 @@
                                 'tinggi' => ['#fefce8','#fef3c7','#d97706'],
                                 'kritis' => ['#fff1f2','#fee2e2','#dc2626'],
                             ];
-                        @endphp
+                        ?>
 
-                        {{-- Opsi: tidak override --}}
+                        
                         <div class="mb-2">
                             <label class="d-flex align-items-center gap-2 p-2 rounded-3"
                                    id="labelNoOverride"
@@ -605,38 +624,39 @@
                                         <i class="bi bi-check-circle-fill me-1"></i>Urgensi Tepat
                                     </div>
                                     <div style="font-size:0.68rem; color:#3b82f6;">
-                                        Tidak perlu diubah — {{ ucfirst($tiket->slaConfig->urgensi ?? '-') }} sudah sesuai
+                                        Tidak perlu diubah — <?php echo e(ucfirst($tiket->slaConfig->urgensi ?? '-')); ?> sudah sesuai
                                     </div>
                                 </div>
                             </label>
                         </div>
 
                         <div class="row g-2 mb-2">
-                            @foreach($slaAll as $sla)
-                            @php [$bgLight, $bg, $tc] = $overrideColors[$sla->urgensi] ?? ['#f8fafc','#f1f5f9','#475569']; @endphp
+                            <?php $__currentLoopData = $slaAll; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sla): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php [$bgLight, $bg, $tc] = $overrideColors[$sla->urgensi] ?? ['#f8fafc','#f1f5f9','#475569']; ?>
                             <div class="col-6">
                                 <label class="d-flex align-items-center gap-2 p-2 rounded-3 h-100"
-                                       id="labelOverride{{ $sla->id }}"
-                                       style="border:2px solid {{ $bg }}; cursor:pointer;
-                                              background:{{ $bgLight }}; transition:all .15s;">
+                                       id="labelOverride<?php echo e($sla->id); ?>"
+                                       style="border:2px solid <?php echo e($bg); ?>; cursor:pointer;
+                                              background:<?php echo e($bgLight); ?>; transition:all .15s;">
                                     <input type="radio" name="sla_config_override_id"
-                                           value="{{ $sla->id }}"
+                                           value="<?php echo e($sla->id); ?>"
                                            class="form-check-input mt-0"
-                                           onchange="selectOverride({{ $sla->id }})">
+                                           onchange="selectOverride(<?php echo e($sla->id); ?>)">
                                     <div>
-                                        <div class="fw-bold small" style="color:{{ $tc }};">
-                                            {{ ucfirst($sla->urgensi) }}
+                                        <div class="fw-bold small" style="color:<?php echo e($tc); ?>;">
+                                            <?php echo e(ucfirst($sla->urgensi)); ?>
+
                                         </div>
-                                        <div style="font-size:0.65rem; color:{{ $tc }}; opacity:0.8;">
-                                            SLA: {{ $sla->durasi_jam }} jam
+                                        <div style="font-size:0.65rem; color:<?php echo e($tc); ?>; opacity:0.8;">
+                                            SLA: <?php echo e($sla->durasi_jam); ?> jam
                                         </div>
                                     </div>
                                 </label>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
 
-                        {{-- Alasan override --}}
+                        
                         <div id="boxAlasanOverride" style="display:none;">
                             <label class="form-label small fw-semibold">
                                 Alasan Perubahan Urgensi <span class="text-danger">*</span>
@@ -656,10 +676,10 @@
                 </form>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- AKSI PIC OPD: KONFIRMASI SELESAI -->
-        @if(auth()->user()->isPicOpd() && $tiket->status === 'resolved')
+        <?php if(auth()->user()->isPicOpd() && $tiket->status === 'resolved'): ?>
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
             <div style="background:linear-gradient(135deg,#14532d,#16a34a); padding:1rem 1.25rem;">
                 <h6 class="mb-0 fw-semibold text-white d-flex align-items-center gap-2">
@@ -678,8 +698,8 @@
                         Jika belum, klik "Belum Selesai" untuk meminta CSIRT menangani ulang.
                     </p>
                 </div>
-                <form action="{{ route('tiket.konfirmasi', $tiket) }}" method="POST">
-                    @csrf
+                <form action="<?php echo e(route('tiket.konfirmasi', $tiket)); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">
                             Catatan
@@ -705,10 +725,10 @@
                 </form>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- STATUS SUDAH CLOSED -->
-        @if($tiket->status === 'closed')
+        <?php if($tiket->status === 'closed'): ?>
         <div class="card border-0 shadow-sm mb-3" style="overflow:hidden;">
             <div style="background:linear-gradient(135deg,#1e293b,#334155); padding:1.5rem; text-align:center;">
                 <div style="width:56px; height:56px; background:rgba(255,255,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 0.75rem;">
@@ -717,23 +737,24 @@
                 <h6 class="fw-bold text-white mb-1">Tiket Ditutup</h6>
                 <p class="mb-0 text-white" style="font-size:0.75rem; opacity:0.6;">
                     Insiden selesai &amp; dikonfirmasi PIC OPD<br>
-                    {{ $tiket->closed_at ? $tiket->closed_at->format('d/m/Y H:i:s') : '' }}
+                    <?php echo e($tiket->closed_at ? $tiket->closed_at->format('d/m/Y H:i:s') : ''); ?>
+
                 </p>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
-@if(!in_array($tiket->status, ['resolved','closed']) && $tiket->sla_deadline)
+<?php $__env->startPush('scripts'); ?>
+<?php if(!in_array($tiket->status, ['resolved','closed']) && $tiket->sla_deadline): ?>
 <script>
 (function() {
     // Deadline dalam milidetik (dari server, sudah WIB)
-    const deadlineMs   = {{ $tiket->sla_deadline->valueOf() }};
-    const totalDetik   = {{ $tiket->slaConfig->durasi_jam * 3600 }};
-    const isOverdue    = {{ $tiket->is_overdue ? 'true' : 'false' }};
+    const deadlineMs   = <?php echo e($tiket->sla_deadline->valueOf()); ?>;
+    const totalDetik   = <?php echo e($tiket->slaConfig->durasi_jam * 3600); ?>;
+    const isOverdue    = <?php echo e($tiket->is_overdue ? 'true' : 'false'); ?>;
 
     const elCountdown  = document.getElementById('slaCountdown');
     const elBar        = document.getElementById('slaProgressBar');
@@ -799,7 +820,7 @@
     setInterval(tick, 1000);
 })();
 </script>
-@endif
+<?php endif; ?>
 
 <script>
 function updateCatatanHint(val) {
@@ -879,4 +900,6 @@ function resetOverride() {
     selectOverride(null);
 }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Project New Kominfo - Copy\silantek\resources\views/tiket/show.blade.php ENDPATH**/ ?>

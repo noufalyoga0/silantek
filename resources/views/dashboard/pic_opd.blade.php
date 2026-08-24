@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Dashboard')
-@section('page-title', 'Dashboard PIC IT OPD')
+@section('page-title', 'Dashboard PIC OPD')
 
 @section('content')
 
@@ -24,7 +24,7 @@
                             display:flex; align-items:center; justify-content:center;">
                     <i class="bi bi-person-fill text-white" style="font-size:1rem;"></i>
                 </div>
-                <span class="text-white" style="font-size:0.78rem; opacity:0.75;">PIC IT OPD</span>
+                <span class="text-white" style="font-size:0.78rem; opacity:0.75;">PIC OPD</span>
             </div>
             <h4 class="text-white fw-bold mb-1" style="font-size:1.3rem;">
                 Selamat datang, {{ $user->nama }}

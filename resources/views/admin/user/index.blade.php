@@ -50,7 +50,7 @@
                                     'admin'        => 'Admin',
                                     'csirt'        => 'Tim CSIRT',
                                     'kabid_aptika' => 'Kabid APTIKA',
-                                    'pic_opd'      => 'PIC IT OPD',
+                                    'pic_opd'      => 'PIC OPD',
                                     default        => ucfirst($u->role),
                                 };
                             @endphp
@@ -108,7 +108,7 @@
                                             <div class="col-md-6">
                                                 <label class="form-label small fw-semibold">Role <span class="text-danger">*</span></label>
                                                 <select name="role" class="form-select" required>
-                                                    <option value="pic_opd" {{ $u->role=='pic_opd' ? 'selected' : '' }}>PIC IT OPD</option>
+                                                    <option value="pic_opd" {{ $u->role=='pic_opd' ? 'selected' : '' }}>PIC OPD</option>
                                                     <option value="csirt" {{ $u->role=='csirt' ? 'selected' : '' }}>Tim CSIRT</option>
                                                     <option value="kabid_aptika" {{ $u->role=='kabid_aptika' ? 'selected' : '' }}>Kabid APTIKA</option>
                                                     <option value="admin" {{ $u->role=='admin' ? 'selected' : '' }}>Admin</option>
@@ -222,7 +222,7 @@
                             <label class="form-label small fw-semibold">Role <span class="text-danger">*</span></label>
                             <select name="role" class="form-select @error('role') is-invalid @enderror" required>
                                 <option value="">-- Pilih Role --</option>
-                                <option value="pic_opd" {{ old('role')=='pic_opd' ? 'selected' : '' }}>PIC IT OPD</option>
+                                <option value="pic_opd" {{ old('role')=='pic_opd' ? 'selected' : '' }}>PIC OPD</option>
                                 <option value="csirt" {{ old('role')=='csirt' ? 'selected' : '' }}>Tim CSIRT</option>
                                 <option value="kabid_aptika" {{ old('role')=='kabid_aptika' ? 'selected' : '' }}>Kabid APTIKA</option>
                                 <option value="admin" {{ old('role')=='admin' ? 'selected' : '' }}>Admin</option>

@@ -385,9 +385,9 @@
             @foreach([
                 ['bi-ticket-perforated-fill', '#dbeafe', '#2563eb', 'Sistem Tiket Terstruktur', 'Setiap laporan dibuatkan nomor tiket otomatis dengan tracking status lengkap dari Open hingga Closed.'],
                 ['bi-clock-fill', '#dcfce7', '#16a34a', 'SLA Otomatis', 'Batas waktu penanganan dihitung otomatis berdasarkan tingkat urgensi. Sistem menandai dan mengirim notifikasi saat SLA terlewati.'],
-                ['bi-bell-fill', '#fef3c7', '#d97706', 'Notifikasi Real-time', 'PIC IT OPD, Tim CSIRT, dan Kabid APTIKA langsung mendapat notifikasi saat ada perubahan status tiket atau eskalasi overdue.'],
+                ['bi-bell-fill', '#fef3c7', '#d97706', 'Notifikasi Real-time', 'PIC OPD, Tim CSIRT, dan Kabid APTIKA langsung mendapat notifikasi saat ada perubahan status tiket atau eskalasi overdue.'],
                 ['bi-bar-chart-fill', '#f3e8ff', '#7c3aed', 'Dashboard Analitik', 'Visualisasi data insiden per bulan, per kategori, dan per OPD untuk mendukung evaluasi dan perencanaan keamanan TIK.'],
-                ['bi-people-fill', '#fce7f3', '#db2777', 'Multi-Role Access', 'Empat level akses: PIC IT OPD, Tim CSIRT, Kabid APTIKA, dan Admin — masing-masing dengan dashboard dan hak akses tersendiri.'],
+                ['bi-people-fill', '#fce7f3', '#db2777', 'Multi-Role Access', 'Empat level akses: PIC OPD, Tim CSIRT, Kabid APTIKA, dan Admin — masing-masing dengan dashboard dan hak akses tersendiri.'],
                 ['bi-file-earmark-pdf-fill', '#fee2e2', '#dc2626', 'Laporan PDF Resmi', 'Export laporan bulanan dalam format PDF siap cetak dengan kop dan format dokumen resmi pemerintah.'],
             ] as [$icon, $bg, $color, $title, $desc])
             <div class="col-md-6 col-lg-4">
@@ -419,7 +419,7 @@
             <div class="col-lg-7">
                 <div class="d-flex flex-column gap-0">
                     @foreach([
-                        ['1', '#dbeafe', '#2563eb', 'PIC IT OPD Melaporkan', 'Login menggunakan NIP, isi form insiden dengan jenis kejadian, urgensi, deskripsi, dan lampiran. Nomor tiket dibuat otomatis.'],
+                        ['1', '#dbeafe', '#2563eb', 'PIC OPD Melaporkan', 'Login menggunakan NIP, isi form insiden dengan jenis kejadian, urgensi, deskripsi, dan lampiran. Nomor tiket dibuat otomatis.'],
                         ['2', '#f3e8ff', '#7c3aed', 'Tim CSIRT Menerima', 'Tim CSIRT mendapat notifikasi instan. Tiket masuk ke antrian dengan SLA countdown yang langsung berjalan.'],
                         ['3', '#fef3c7', '#d97706', 'Penanganan Berjalan', 'CSIRT memperbarui status secara berkala. PIC OPD bisa memantau progress real-time tanpa perlu telepon.'],
                         ['4', '#dcfce7', '#16a34a', 'Konfirmasi &amp; Selesai', 'Setelah CSIRT resolve, PIC OPD mengkonfirmasi. Tiket ditutup dan masuk rekap laporan bulanan.'],
