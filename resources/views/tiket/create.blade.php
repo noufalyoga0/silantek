@@ -3,6 +3,13 @@
 @section('title', 'Laporkan Insiden')
 @section('page-title', 'Laporkan Insiden Baru')
 
+@push('styles')
+<style>
+    textarea::placeholder { color: #cbd5e1 !important; opacity: 1; }
+    input::placeholder { color: #cbd5e1 !important; opacity: 1; }
+</style>
+@endpush
+
 @section('content')
 
 {{-- ── HERO BANNER ── --}}
@@ -132,7 +139,6 @@
                             @error('tanggal_kejadian')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text small">Kapan insiden ini pertama kali terjadi?</div>
                         </div>
 
                         {{-- Jenis Insiden --}}
@@ -165,7 +171,6 @@
                                        placeholder="Jelaskan jenis insiden singkat..."
                                        value="{{ old('keterangan_lainnya') }}"
                                        maxlength="100">
-                                <div class="form-text small">Contoh: Spoofing email, Man-in-the-middle, dll.</div>
                                 @error('keterangan_lainnya')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -235,7 +240,6 @@
                             @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text small">Minimal 20 karakter. Semakin detail, semakin cepat ditangani.</div>
                         </div>
 
                         {{-- Lampiran --}}
@@ -260,7 +264,7 @@
                                     &nbsp;atau drag &amp; drop
                                 </p>
                                 <p class="mb-0" style="font-size:0.72rem; color:#94a3b8;">
-                                    JPG, PNG, PDF &nbsp;·&nbsp; Maks. 5MB/file &nbsp;·&nbsp; Bisa pilih beberapa file
+                                    JPG, PNG, PDF &nbsp;·&nbsp; Maks. 2MB/file &nbsp;·&nbsp; Bisa pilih beberapa file
                                 </p>
                             </div>
                             <input type="file" id="lampiranPicker" class="d-none" multiple accept=".jpg,.jpeg,.png,.pdf">
@@ -277,10 +281,6 @@
                                     </button>
                                 </div>
                                 <div id="fileGrid" class="row g-2"></div>
-                            </div>
-                            <div class="form-text small mt-1">
-                                <i class="bi bi-info-circle me-1 text-primary"></i>
-                                Boleh dikosongkan. Lampiran membantu Tim CSIRT memahami insiden lebih cepat.
                             </div>
                             @error('lampiran.*')
                                 <div class="text-danger small mt-1">{{ $message }}</div>

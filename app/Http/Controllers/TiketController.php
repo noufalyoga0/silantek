@@ -76,8 +76,8 @@ class TiketController extends Controller
             'tanggal_kejadian'  => 'required|date|before_or_equal:today',
             'jenis_insiden'     => 'required|exists:kategori_insiden,id',
             'sla_config_id'     => 'required|exists:sla_config,id',
-            'deskripsi'         => 'required|min:20',
-            'lampiran.*'        => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'deskripsi'         => 'required',
+            'lampiran.*'        => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
 
         if ($isLainnya) {
@@ -90,10 +90,9 @@ class TiketController extends Controller
             'jenis_insiden.required'          => 'Jenis insiden wajib dipilih.',
             'sla_config_id.required'          => 'Tingkat urgensi wajib dipilih.',
             'deskripsi.required'              => 'Deskripsi kejadian wajib diisi.',
-            'deskripsi.min'                   => 'Deskripsi minimal 20 karakter.',
             'keterangan_lainnya.required'     => 'Keterangan jenis insiden wajib diisi.',
             'lampiran.*.mimes'                => 'Format file harus JPG, PNG, atau PDF.',
-            'lampiran.*.max'                  => 'Ukuran file maksimal 5MB.',
+            'lampiran.*.max'                  => 'Ukuran file maksimal 2MB.',
         ]);
 
         $user = Auth::user();
@@ -190,7 +189,7 @@ class TiketController extends Controller
 
         $request->validate([
             'status'                 => 'required|in:triase,in_progress,resolved',
-            'catatan'                => 'required|min:10',
+            'catatan'                => 'required',
             'sla_config_override_id' => 'nullable|exists:sla_config,id',
             'catatan_triase'         => 'nullable|string|max:500',
         ], [

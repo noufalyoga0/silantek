@@ -1,6 +1,13 @@
 <?php $__env->startSection('title', 'Laporkan Insiden'); ?>
 <?php $__env->startSection('page-title', 'Laporkan Insiden Baru'); ?>
 
+<?php $__env->startPush('styles'); ?>
+<style>
+    textarea::placeholder { color: #cbd5e1 !important; opacity: 1; }
+    input::placeholder { color: #cbd5e1 !important; opacity: 1; }
+</style>
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -144,7 +151,6 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            <div class="form-text small">Kapan insiden ini pertama kali terjadi?</div>
                         </div>
 
                         
@@ -199,7 +205,6 @@ unset($__errorArgs, $__bag); ?>"
                                        placeholder="Jelaskan jenis insiden singkat..."
                                        value="<?php echo e(old('keterangan_lainnya')); ?>"
                                        maxlength="100">
-                                <div class="form-text small">Contoh: Spoofing email, Man-in-the-middle, dll.</div>
                                 <?php $__errorArgs = ['keterangan_lainnya'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -299,7 +304,6 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            <div class="form-text small">Minimal 20 karakter. Semakin detail, semakin cepat ditangani.</div>
                         </div>
 
                         
@@ -324,7 +328,7 @@ unset($__errorArgs, $__bag); ?>
                                     &nbsp;atau drag &amp; drop
                                 </p>
                                 <p class="mb-0" style="font-size:0.72rem; color:#94a3b8;">
-                                    JPG, PNG, PDF &nbsp;·&nbsp; Maks. 5MB/file &nbsp;·&nbsp; Bisa pilih beberapa file
+                                    JPG, PNG, PDF &nbsp;·&nbsp; Maks. 2MB/file &nbsp;·&nbsp; Bisa pilih beberapa file
                                 </p>
                             </div>
                             <input type="file" id="lampiranPicker" class="d-none" multiple accept=".jpg,.jpeg,.png,.pdf">
@@ -341,10 +345,6 @@ unset($__errorArgs, $__bag); ?>
                                     </button>
                                 </div>
                                 <div id="fileGrid" class="row g-2"></div>
-                            </div>
-                            <div class="form-text small mt-1">
-                                <i class="bi bi-info-circle me-1 text-primary"></i>
-                                Boleh dikosongkan. Lampiran membantu Tim CSIRT memahami insiden lebih cepat.
                             </div>
                             <?php $__errorArgs = ['lampiran.*'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

@@ -568,10 +568,9 @@
                                   class="form-control form-control-sm"
                                   rows="4"
                                   placeholder="Jelaskan tindakan yang telah dilakukan untuk menangani insiden ini..."
-                                  required minlength="10" id="catatanCsirt"
+                                  required id="catatanCsirt"
                                   oninput="updateCatatanHint(this.value)"></textarea>
                         <div class="form-text small d-flex justify-content-between mt-1">
-                            <span style="color:#94a3b8;">Minimal 10 karakter</span>
                             <span id="catatanHint" style="color:#94a3b8; font-variant-numeric:tabular-nums;">0 karakter</span>
                         </div>
                     </div>
@@ -667,7 +666,6 @@
                                       id="inputCatatanTriase"
                                       placeholder="Contoh: Website masih bisa diakses sebagian, diturunkan dari Kritis ke Sedang."
                                       maxlength="500"></textarea>
-                            <div class="form-text small">Wajib diisi jika urgensi diubah.</div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 fw-semibold">
@@ -707,7 +705,6 @@
                         </label>
                         <textarea name="catatan" class="form-control form-control-sm" rows="2"
                             placeholder="Contoh: Website sudah kembali normal, terima kasih."></textarea>
-                        <div class="form-text small">Boleh dikosongkan.</div>
                     </div>
                     <div class="d-grid gap-2">
                         <button type="submit" name="keputusan" value="setuju"
